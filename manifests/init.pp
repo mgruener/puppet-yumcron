@@ -1,7 +1,8 @@
 class yumcron (
-  $package = $::yumcron::params::package,
-  $config = undef,
+  $package     = $::yumcron::params::package,
+  $config      = undef,
   $hiera_merge = false,
+  $enable      = true,
 ) inherits ::yumcron::params {
   $myclass = $module_name
 
@@ -34,5 +35,12 @@ class yumcron (
 
   package { $package:
     ensure => present
+  }
+
+  service { $service_name:
+    ensure   => $enable,
+    enable   => $enable,
+    provider => $service_provider,
+    require  => Package[$package],
   }
 }
