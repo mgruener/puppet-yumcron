@@ -30,7 +30,7 @@ class yumcron (
       $config_real = $config
     }
 
-    create_resources('yumcron::config',$config_real)
+    create_resources('yumcron::config',$config_real, { require => Package[$package] })
   }
 
   package { $package:
